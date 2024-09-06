@@ -1,0 +1,68 @@
+/* Basic nav bar styling */
+header {
+    position: relative;
+    z-index: 2;
+    margin-top: -8px;
+    margin-left: -8px;
+    margin-right: -8px;
+}
+
+nav ul {
+    list-style: none; /* remove bullet points */
+    margin: 0;
+    padding: 0;
+    background-color: #333; /* dark background */
+    overflow: hidden; /* clear floats */
+}
+
+nav li {
+    float: left; /* make list items float horizontally */
+}
+
+nav li a {
+    display: block;
+    color: #e9e9e9;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    transition: background-color 0.5s ease-in-out;
+}
+
+nav li a:hover {
+    background-color: #111; /* darker background on hover */
+    transition: background-color 0.5s ease-in-out;
+}
+
+nav ul li:last-child { /* Gets it to the right most side of the nav bar */
+    float: right;
+}
+
+nav ul li:last-child a:hover { 
+    background-color: #80111c; 
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+/* Footer styling */
+footer {
+    text-align: center;
+    position: relative;  
+    bottom: 0;          
+    width: 100%;         
+    padding: 10px 0;   
+}
+  
+footer p {
+    color: #807c73;  
+    font-family: 'Verdana', sans-serif;
+    margin: 0;
+    font-size: 10px;
+}

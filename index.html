@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to Lesson Bookings</title> 
+    <link rel="stylesheet" href="style.css"> 
+</head>
+
+<body class="login-page">
+    <header>
+        </header>
+
+    <main>
+        <section id="hero">
+            <div id="login-form"> 
+                <h2>Login</h2>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Username"><br><br>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"><br><br>
+
+                <button onclick="login()">Login</button>
+                <div id="error-message"></div> 
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Copyright &copy; 2024 Vicky Ye. All right reserved.</p>
+    </footer>
+
+    <script src="script.js"></script> 
+    <script>
+    function login() {
+        // Get username and password from input fields
+        let username = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
+
+        // Show loading indicator
+        showLoadingIndicator();
+
+        // Send login request to backend (replace with actual API endpoint later)
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        })
+        .then(response => {
+
+            hideLoadingIndicator(); // hide loading indicator
+
+            if (response.ok) {
+                console.log("Login successful!");
+                window.location.href = 'home.html';
+
+            } else {
+                console.error("Login failed!");
+                
+                // Get error message from response body if available
+                response.json().then(data => {
+                    const errorMessageText = data.error || "Login failed. Please try again later.";
+                    displayErrorMessage(errorMessageText);
+                }).catch(error => {
+                    // Handle JSON parsing error
+                    displayErrorMessage("An error occurred. Please try again later.");
+                });
+            }
+        })
+        .catch(error => {
+            // Hide loading indicator
+            hideLoadingIndicator();
+
+            // Handle network errors
+            console.error("Network error:", error);
+            displayErrorMessage("An error occurred. Please try again later.");
+        });
+    }
+
+    // Sets the error message to look good
+    function displayErrorMessage(message) {
+        const errorMessage = document.getElementById("error-message");
+        errorMessage.textContent = message; 
+        errorMessage.classList.add('show');
+
+        setTimeout(() => {
+            errorMessage.classList.remove('show');
+        }, 3000);   
+    }
+
+    // TODO: Add functions to show/hide loading indicator 
+    function showLoadingIndicator() { /* ... */ }
+    function hideLoadingIndicator() { /* ... */ }
+
+
+    // Clear error message on input
+    document.getElementById("username").addEventListener("input", () => {
+        document.getElementById("error-message").classList.remove('show');
+    });
+    document.getElementById("password").addEventListener("input", () => {
+        document.getElementById("error-message").classList.remove('show');
+    });
+
+    </script>
+
+</body>
+</html>
+
